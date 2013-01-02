@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CONTACT LEXINGTON INTERNATIONAL</title>
+<?php $page = 'contact'; ?>
+<link href="reset.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="lexington.js"></script>
+</head>
+
+<body>
+<div class="sitewrap">
+  <div id="top"><img src="images/facebook.gif" style="float:right;" width="17" height="16" alt="facebook" /><img src="images/twitter.gif" style="float:right" width="17" height="16" alt="twitter" /></div>
+  <div id="nav">
+    <?php include("navigation.php"); ?>
+  </div>
+  <div id="center">
+   <div class="text">
+  <div class="title">CONTACT LEXINGTON REALTY INTERNATIONAL</div>
+  <div class="textleft" style="margin-bottom:52px;">
+  <span class="blue">Lexington Realty International LLC</span><br/>
+  911 East County Line Road/ Lakewood, NJ 08701<br/>
+  Phone: (888) LRI-8882 (888.574.8882)<br/>
+  Fax: 732.363.8006<br/><br/><br/>
+  <span class="blue">Contact Via Email</span><br/><br/>
+  <span class="bold">Alan Retkinski</span><br/>
+  alan@lexingtonco.com<br/><br/>
+  <span class="bold">Eric Frankel</span><br/>
+  eric@lexingtonco.com<br/><br/>
+  <span class="bold">Segal Schonfeld</span><br/>
+  segal@lexingtonco.com<br/><br/>
+  <span class="bold">Jason Starkman</span><br/>
+  jason@lexingtonco.com<br/><br/>
+  <span class="bold">Asher Weisz</span><br/>
+  asher@lexingtonco.com<br/><br/>
+  <span class="bold">Sol Reichenberg</span><br/>
+  sol@lexingtonco.com<br/><br/>
+  <span class="bold">Ira Einhorn</span><br/>
+  ira@lexingtonco.com<br/><br/>
+  <span class="bold">Steve Weinberg</span><br/>
+  steve@lexingtonco.com<br/><br/>
+  <span class="bold">For additional information</span> info@lexingtonco.com
+  </div>
+  <div class="textright"><br/>
+  Thank you for your interest in <span class="bold">Lexington<br/>Realty International.</span> To send feedback,<br/>or for questions and other info, please fill<br/> out the form below:<br/>
+  <div id="form">
+        <form method="post" action="mailer.php" enctype="multipart/form-data">
+          <div class="formline">
+            <span class="label" style="float:left;">FIRST NAME</span><br/>
+            <input type="text" name="FirstName" class="textfield" style="float:left;"/>
+          </div>
+           <div class="formline">
+            <span class="label" style="float:left;">LAST NAME *</span><br/>
+            <input type="text" name="FirstName" class="textfield" style="float:left;"/>
+          </div>
+          <div class="formline">
+            <span class="label" style="float:left;">COMPANY NAME</span><br/>
+            <input type="text" name="FirstName" class="textfield" style="float:left;"/>
+          </div>
+          <div class="formline">
+            <span class="label" style="float:left;">PHONE NUMBER</span><br/>
+            <input type="text" name="FirstName" class="textfield" style="float:left;"/>
+          </div>
+          <div class="formline">
+            <span class="label" style="float:left;">EMAIL ADDRESS *</span><br/>
+            <input type="text" name="FirstName" class="textfield" style="float:left;"/>
+          </div>
+          <div class="formline">
+            <div class="label" style="float:left;">YOUR INQUIRY</div>
+            <textarea name="Comments" class="textarea"></textarea>
+          </div>
+          <div class="submit"> 
+            <input type="image" name="submit" src="images/send.gif" width="81" height="20" />
+          </div>
+        </form>
+  </div>
+  </div>
+  </div>
+  <div class="aboutpic"><img src="images/Contact_pic.jpg" width="264" height="526" />
+  </div>
+  <div class="para2" style="margin-top:15px;">
+        <div class="title">LEASE SPACE</div><br/><img src="images/leasing_map.gif" width="106" height="113" />
+      <div class="view">View Our<br/>Leasing<br/>Portfolio<br/><br/>
+      <a href="properties.php" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Portfolio_Click','','images/Homepage_click_hover.gif',1)"><img src="images/Homepage_click.gif" name="Portfolio_Click" width="80" height="20" border="0" id="Portfolio_Click" /></a>
+    </div>
+  </div>
+</div>
+  </div>
+  <div id="footer"><div class="wrapper"><img src="images/footer_top.gif" width="960" height="27" style="background-repeat:no-repeat;" />
+    <?php include("footer.php"); ?></div>
+</div>
+</body>
+</html>
