@@ -1,0 +1,29 @@
+TODO for lexington
+
+	Property Name					Text
+	Property Address
+		Address							Text
+		City								Text
+		State								Select
+		Zip									Text
+	Leasing Contact
+		Name								Text
+		Email								Text
+	Anchor Stores					Text				???
+	Property Type					Select			Options?
+	Built									Select
+	Renovated							Select
+	Total Sq Feet					Text
+	Space Available				Text
+	Description						Textarea
+	Downloads
+		Area Map						Upload
+		Demographics				Upload
+		Adt'l Downloads			Upload
+		Site Plan						Upload
+			Tenants
+				Number					Text 				Auto?
+				Name						Text
+				Sq Feet					Text
+	Website								Text
+	Image									Upload
