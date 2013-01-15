@@ -34,13 +34,16 @@
           <td align="left">Zip</td><td align="left"><input type="text" name="zip" /></td>
         </tr>
         <tr>
-          <td align="left">Lease Contact</td><td align="left"><input type="text" name="lease_contact[]" /></td>
+          <td align="left">Lease Contact</td><td align="left"><input type="text" name="lease_contact[1][name]" /></td>
         </tr>
         <tr>
-          <td align="left">Lease Contact</td><td align="left"><input type="text" name="lease_contact[]" /></td>
+          <td align="left">Lease Contact Email</td><td align="left"><input type="text" name="lease_contact[1][email]" /></td>
         </tr>
         <tr>
-          <td align="left">Lease Contact</td><td align="left"><input type="text" name="lease_contact[]" /></td>
+          <td align="left">Lease Contact</td><td align="left"><input type="text" name="lease_contact[2][name]" /></td>
+        </tr>
+        <tr>
+          <td align="left">Lease Contact Email</td><td align="left"><input type="text" name="lease_contact[2][email]" /></td>
         </tr>
         <tr>
           <td align="left">Property Type</td><td align="left"><select name="prop_type">

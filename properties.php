@@ -1,3 +1,6 @@
+<?php
+  require('./inc/db.inc');
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,8 +25,19 @@
       Use the map above to view properties<br/>
       in each state, or choose a state below.<br/>
       <br/>
-      <span class="blue">Lexington Realty International has properties in the following states:<br/>
-      </span> <div class="states"><a href="properties/Alabama/">Alabama</a><br/>
+      <span class="blue">Lexington Realty International has properties in the following states:<br/></span>
+      <div class="states">
+        
+        <?php 
+          $q = mysql_query("SELECT s.id,s.name FROM properties p LEFT JOIN us_states s ON s.id = p.state ORDER BY s.name ASC");
+          while($r = mysql_fetch_assoc($q)) {
+        ?>
+          <a href="./properties/?s=<?php echo $r['id'];?>"><?php echo $r['name'];?></a><br/>
+        <?php
+          }
+        
+        /*
+      <a href="properties/Alabama/">Alabama</a><br/>
       <a href="">Iowa</a><br/>
       <a href="">Missouri</a><br/>
       <a href="">Ohio</a><br/>
@@ -41,6 +55,9 @@
       <a href="">Mississippi</a><br/>
       <a href="">North Carolina</a><br/>
       <a href="">Tennessee</a><br/>
+         * 
+         */
+        ?>
       </div>
        <div class="para2" style="margin-top:-50px;">
         <div class="title2">LEASE SPACE</div><br/><img src="images/leasing_map.gif" width="106" height="113" />
