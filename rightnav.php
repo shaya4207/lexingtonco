@@ -1,5 +1,25 @@
+<?php
+  if(isset($_GET['s'])) {
+    $s = $_GET['s'];
+  } else if(isset($_GET['prop'])) {
+    $id = $_GET['prop'];
+    $q = mysql_query("SELECT state FROM properties WHERE id = $id");
+    while($r = mysql_fetch_assoc($q)){
+      $s = $r['state'];
+    }
+  }
+?>
+
 <div id="Rnav">
 <ul>
+  <?php
+    $q1 = mysql_query("SELECT s.id,s.name FROM properties p LEFT JOIN us_states s ON s.id = p.state ORDER BY s.name ASC");
+    while($r1 = mysql_fetch_assoc($q1)) {
+  ?>
+      <li <?php if($r1['id'] == $s) { echo "class='lion'";} ?>><a href=""><?php echo ucfirst($r1['name']);?></a></li>
+  <?php
+    }
+    /*
 <?php if($state=='Albama'){?><li class="lion"><?php } else { ?><li><?php } ?><a href="">Alabama</a></li>
 <?php if($state=='Connecticut'){?><li class="lion"><?php } else { ?><li><?php } ?><a href="">Connecticut</a></li>
 <?php if($state=='Georgia'){?><li class="lion"><?php } else { ?><li><?php } ?><a href="">Georgia</a></li>
@@ -18,5 +38,8 @@
 <?php if($state=='Tennessee'){?><li class="lion"><?php } else { ?><li><?php } ?><a href="">Tennessee</a></li>
 <?php if($state=='Wisconsin'){?><li class="lion"><?php } else { ?><li><?php } ?><a href="">Wisconsin</a></li>
 <?php if($state=='Virginia'){?><li class="lion"><?php } else { ?><li><?php } ?><a href="">Virginia</a></li>
+     * 
+     */
+  ?>
 </ul>
 </div>
