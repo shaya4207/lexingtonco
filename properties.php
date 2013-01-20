@@ -29,10 +29,10 @@
       <div class="states">
         
         <?php 
-          $q = mysql_query("SELECT s.id,s.name FROM properties p LEFT JOIN us_states s ON s.id = p.state ORDER BY s.name ASC");
+          $q = mysql_query("SELECT s.states_id,s.states_name FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state ORDER BY s.states_name ASC");
           while($r = mysql_fetch_assoc($q)) {
         ?>
-          <a href="./properties/?s=<?php echo $r['id'];?>"><?php echo $r['name'];?></a><br/>
+          <a href="./properties/?s=<?php echo $r['states_id'];?>"><?php echo $r['states_name'];?></a><br/>
         <?php
           }
         

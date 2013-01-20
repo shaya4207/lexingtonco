@@ -28,37 +28,37 @@
     <div class="text" style="min-height:850px;">
       <?php
         $i = 0;
-        $q = mysql_query("SELECT p.*,s.name AS 's_name',s.abbr AS 's_abbr',t.name AS 't_name' FROM properties p LEFT JOIN us_states s ON s.id = p.state LEFT JOIN prop_types t ON t.id = p.prop_type WHERE state = $s");
+        $q = mysql_query("SELECT p.*,s.*,t.* FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state LEFT JOIN prop_types t ON t.prop_id = p.property_prop_type WHERE s.states_id = $s");
         while($r = mysql_fetch_assoc($q)) {
           if($i == 0) {
       ?>
             <div class="title">
-              PROPERTIES FOR LEASE IN <?php echo strtoupper($r['s_name']);?>
+              PROPERTIES FOR LEASE IN <?php echo strtoupper($r['states_name']);?>
             </div>
       <?php
           }
       ?>
           <div class="Prlist" style="margin-top:140px;">
             <?php
-              if($r['image'] == 1) {
+              if($r['property_image'] == 1) {
             ?>
                 <div class="img" style="margin-top:50px;">
-                  <img src="../prop_images/<?php echo $r['id'] . $r['image_ext'];?>" width="120" height="97" alt="Country Club" />
+                  <img src="../prop_images/<?php echo $r['property_id'] . $r['property_image_ext'];?>" width="120" height="97" alt="<?php echo $r['property_name'];?>" />
                 </div>
             <?php
               }
             ?>
             <span class="blue" style="color:#f1b8bca;">
-              <a href="./single/?prop=<?php echo $r['id'];?>"><?php echo $r['name'];?></a>
+              <a href="./single/?prop=<?php echo $r['property_id'];?>"><?php echo $r['property_name'];?></a>
             </span><br/>
-            <?php echo $r['address'] . ", " . $r['city'] . ", " . $r['s_abbr'];?><br/>
+            <?php echo $r['property_address'] . ", " . $r['property_city'] . ", " . $r['states_abbr'];?><br/>
             <br/>
             Anchor Stores: Winn Dixie<br/>
-            Property Type: <?php echo $r['t_name'];?><br/>
+            Property Type: <?php echo $r['type_name'];?><br/>
             <br/>
             <br/>
             <?php
-              $lease_contact = unserialize($r['lease_contact']);
+              $lease_contact = unserialize($r['property_lease_contact']);
               if(count($lease_contact) == 1) {
             ?>
                 <span class="bold" style="font-size:11px;">Leasing Contact:</span><br/>

@@ -4,27 +4,27 @@
 //exit;
   require('../inc/db.inc');
   
-  $name = $_POST['name'];
-  $address = $_POST['address'];
-  $city = $_POST['city'];
-  $zip = $_POST['zip'];
-  $state = $_POST['state'];
-  $lease_contact = serialize($_POST['lease_contact']);
-  $prop_type = $_POST['prop_type'];
-  $built = $_POST['built'];
-  $renovated = $_POST['renovated'];
-  $total_sq_ft = $_POST['total_sq_ft'];
-  $avail_space = $_POST['avail_space'];
-  $description = $_POST['description'];
-  $website = $_POST['website'];
+  $property_name = $_POST['property_name'];
+  $property_address = $_POST['property_address'];
+  $property_city = $_POST['property_city'];
+  $property_zip = $_POST['property_zip'];
+  $property_state = $_POST['property_state'];
+  $property_lease_contact = serialize($_POST['property_lease_contact']);
+  $property_prop_type = $_POST['property_prop_type'];
+  $property_built = $_POST['property_built'];
+  $property_renovated = $_POST['property_renovated'];
+  $property_total_sq_ft = $_POST['property_total_sq_ft'];
+  $property_avail_space = $_POST['property_avail_space'];
+  $property_description = $_POST['property_description'];
+  $property_website = $_POST['property_website'];
   
-  $q = mysql_query("INSERT INTO properties(name,address,city,state,zip,lease_contact,prop_type,built,renovated,total_sq_ft,avail_space,description,website)VALUES('$name','$address','$city','$state','$zip','$lease_contact','$prop_type','$built','$renovated','$total_sq_ft','$avail_space','$description','$website')");
+  $q = mysql_query("INSERT INTO properties(property_name,property_address,property_city,property_state,property_zip,property_lease_contact,property_prop_type,property_built,property_renovated,property_total_sq_ft,property_avail_space,property_description,property_website)VALUES('$property_name','$property_address','$property_city','$property_state','$property_zip','$property_lease_contact','$property_prop_type','$property_built','$property_renovated','$property_total_sq_ft','$property_avail_space','$property_description','$property_website')");
 
   if($q) {
     $id = mysql_insert_id();
-    if(isset($_FILES['image']) && !empty($_FILES['image'])) {
-      if($_FILES['image']['error'] == "0") {
-        $filetype = $_FILES['image']['type'];
+    if(isset($_FILES['property_image']) && !empty($_FILES['property_image'])) {
+      if($_FILES['property_image']['error'] == "0") {
+        $filetype = $_FILES['property_image']['type'];
         $type = array('image/gif', 'image/jpeg', 'image/png',
           'application/x-shockwave-flash', 'image/psd', 'image/bmp',
           'image/tiff', 'image/tiff', 'application/octet-stream',
@@ -40,9 +40,9 @@
         
         
         $dir = "../prop_images/";
-        $upload = move_uploaded_file($_FILES['image']['tmp_name'],$dir.'/'.$id.'.'.$comb[$filetype]);
+        $upload = move_uploaded_file($_FILES['property_image']['tmp_name'],$dir.'/'.$id.'.'.$comb[$filetype]);
         if($upload){
-          $sql = mysql_query("UPDATE properties SET image = 1, image_ext = '.$comb[$filetype]' WHERE id = $id");
+          $sql = mysql_query("UPDATE properties SET property_image = 1, property_image_ext = '.$comb[$filetype]' WHERE property_id = $id");
           
           echo "All was successful!!";
         }else{

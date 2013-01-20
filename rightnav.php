@@ -3,9 +3,9 @@
     $s = $_GET['s'];
   } else if(isset($_GET['prop'])) {
     $id = $_GET['prop'];
-    $q = mysql_query("SELECT state FROM properties WHERE id = $id");
+    $q = mysql_query("SELECT property_state FROM properties WHERE property_id = $id");
     while($r = mysql_fetch_assoc($q)){
-      $s = $r['state'];
+      $s = $r['property_state'];
     }
   }
 ?>
@@ -13,10 +13,10 @@
 <div id="Rnav">
 <ul>
   <?php
-    $q1 = mysql_query("SELECT s.id,s.name FROM properties p LEFT JOIN us_states s ON s.id = p.state ORDER BY s.name ASC");
+    $q1 = mysql_query("SELECT s.states_id,s.states_name FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state ORDER BY s.states_name ASC");
     while($r1 = mysql_fetch_assoc($q1)) {
   ?>
-      <li <?php if($r1['id'] == $s) { echo "class='lion'";} ?>><a href=""><?php echo ucfirst($r1['name']);?></a></li>
+      <li <?php if($r1['states_id'] == $s) { echo "class='lion'";} ?>><a href=""><?php echo ucfirst($r1['states_name']);?></a></li>
   <?php
     }
     /*
