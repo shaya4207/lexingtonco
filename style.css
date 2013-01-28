@@ -459,3 +459,107 @@ body {
 	clear:both;
 	padding-top:25px;
 }
+
+
+
+
+
+
+
+
+
+
+#center2 .Prtext{
+  float:left;
+  width:883px;
+  border:10px solid #d2e6ef;
+  height:auto;
+  padding:22px 35px 0px 22px;
+  background-color:#FFF;
+  color:#57585a;
+}
+#center2 .Prtext .title{
+  float:left;
+  background-image:url(images/PropertiesLanding_03.gif);
+  width:940px;
+  height:57px;
+  margin:-22px 0px 0px -22px;
+  padding-top:52px;
+  text-align:center;
+  font-size:16px;
+  color:#FFF;
+  font-weight:normal;
+}
+
+#center2 .blue{
+  color:#1b8bca;
+  font-size:16px;
+  font-weight:bold;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+a.adminLinks,.adminSubmit {
+  display: block;
+  padding: 7px 18px;
+  background: #1b8bca;
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px 20px 0;
+  float: left;
+  font-weight: bold;
+  font-size: 18px;
+  border:none;
+  cursor: pointer;
+}
+
+a.adminLinks:hover,.adminSubmit:hover {
+  text-decoration: none;
+  background: #084f9e;
+  color: #efefef;
+}
+
+.adminTable {
+  margin: 0 auto;
+  
+}
+
+.adminTable tr{
+  height: 40px;
+}
+
+.adminLabels {
+  width: 150px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.adminInput {
+  width: 250px;
+  height: 28px;
+  padding: 0 7px;
+  border: 1px solid #57585a;
+  background-color: #f0f8fb;
+}
+
+
+
+.adminSubmitS {
+  display: inline-block;
+  padding: 3px 9px;
+  margin: 0;
+  background: #1b8bca;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+  border:none;
+  cursor: pointer;
+}
+
+.adminSubmitS:hover {
+  text-decoration: none;
+  background: #084f9e;
+  color: #efefef;
+}

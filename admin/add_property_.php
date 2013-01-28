@@ -1,7 +1,7 @@
 <?php
-//echo "<pre>";
-//print_r($_POST);
-//exit;
+echo "<pre>";
+print_r($_POST);
+exit;
   require('../inc/db.inc');
   
   $property_name = $_POST['property_name'];
