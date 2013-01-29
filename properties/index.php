@@ -53,8 +53,8 @@
             </span><br/>
             <?php echo $r['property_address'] . ", " . $r['property_city'] . ", " . $r['states_abbr'];?><br/>
             <br/>
-            Anchor Stores: Winn Dixie<br/>
-            Property Type: <?php echo $r['type_name'];?><br/>
+            Anchor Stores: <?php // echo $r['tenants_name'];?><br/>
+            Property Type: <?php echo $r['prop_name'];?><br/>
             <br/>
             <br/>
             <?php
@@ -70,7 +70,7 @@
               }
               foreach($lease_contact as $v) {
             ?>
-                <span style="font-size:11px"><?php echo $v['name'];?>, <a href="mailto:<?php echo $v['email'];?>"><?php echo $v['email'];?></a></span><br/>
+                <span style="font-size:11px"><?php echo $v['name'];?>, <a href="mailto:<?php echo strtolower($v['email']);?>"><?php echo strtolower($v['email']);?></a></span><br/>
             <?php
               }
             ?>
