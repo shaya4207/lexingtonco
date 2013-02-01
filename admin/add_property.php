@@ -140,10 +140,10 @@
             </tr>
             <tr style="background: #d6d6d6">
               <td colspan="2">
-                <table cellpadding="0" cellspacing="0">
+                <table cellpadding="0" cellspacing="0" id="contacts_table">
                   <tr class="tr_property_lease_contact_name">
                     <td align="left">
-                      <label for="property_lease_contact[1][name]" class="adminLabels">Lease Contact</label>
+                      <label for="property_lease_contact[][name]" class="adminLabels">Lease Contact</label>
                     </td>
                     <td align="left">
                       <input type="text" class="adminInput" id="property_lease_contact[][name]" name="property_lease_contact[1][name]" />
@@ -151,7 +151,7 @@
                   </tr>
                   <tr class="tr_property_lease_contact_email">
                     <td align="left">
-                      <label for="property_lease_contact[1][email]" class="adminLabels">Lease Contact Email</label>
+                      <label for="property_lease_contact[][email]" class="adminLabels">Lease Contact Email</label>
                     </td>
                     <td align="left">
                       <input type="text" class="adminInput" id="property_lease_contact[][email]" name="property_lease_contact[1][email]" />
@@ -186,10 +186,13 @@
     });
   });
   function add_lease_contacts() {
-    var tr_name = $(".tr_property_lease_contact_name");
-    var tr_email = $(".tr_property_lease_contact_email");
+    $("#contacts_table").children("tr").eq(0).clone().appendTo("#contacts_table");
+    $("#contacts_table").children("tr").eq(1).clone().appendTo("#contacts_table");
+//    $("#contacts_table tr:first,#contacts_table tr:second").clone().appendTo("#contacts_table");
+//    var tr_name = $(".tr_property_lease_contact_name");
+//    var tr_email = $(".tr_property_lease_contact_email");
     
-    $(".tr_lease_contact_add").before(tr_name).before(tr_email);
+//    $(".tr_lease_contact_add").before(tr_name).before(tr_email);
 //    alert(tr_name);
   };
 </script>
