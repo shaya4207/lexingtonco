@@ -28,7 +28,7 @@
     <div class="text" style="min-height:850px;">
       <?php
         $i = 0;
-        $q = mysql_query("SELECT p.*,s.*,t.* FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state LEFT JOIN prop_types t ON t.prop_id = p.property_prop_type WHERE s.states_id = $s");
+        $q = mysql_query("SELECT p.*,s.* FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state WHERE s.states_id = $s");
         while($r = mysql_fetch_assoc($q)) {
           if($i == 0) {
       ?>
@@ -54,7 +54,7 @@
             <?php echo $r['property_address'] . ", " . $r['property_city'] . ", " . $r['states_abbr'];?><br/>
             <br/>
             Anchor Stores: <?php // echo $r['tenants_name'];?><br/>
-            Property Type: <?php echo $r['prop_name'];?><br/>
+            Property Type: <?php echo $r['property_prop_type'];?><br/>
             <br/>
             <br/>
             <?php

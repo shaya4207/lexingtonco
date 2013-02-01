@@ -27,7 +27,7 @@
   <div id="center">
     <div class="text" style="font-size:11px; padding-bottom:45px;">
       <?php
-        $q = mysql_query("SELECT p.*,s.*,t.* FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state LEFT JOIN prop_types t ON t.prop_id = p.property_prop_type WHERE p.property_id = $prop");
+        $q = mysql_query("SELECT p.*,s.* FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state WHERE p.property_id = $prop");
         while($r = mysql_fetch_assoc($q)) {
       ?>
           <div class="title">
@@ -54,7 +54,7 @@
             ?>
             <br/>
             <span class="tinyblue">Property Type</span><br/>
-            <?php echo $r['prop_name'];?><br/>
+            <?php echo $r['property_prop_type'];?><br/>
             <br/>
             <span class="tinyblue">Built</span><br/>
             <?php echo $r['property_built'];?><br/>
