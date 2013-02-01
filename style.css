@@ -530,7 +530,7 @@ a.adminLinks:hover,.adminSubmit:hover {
 }
 
 .adminLabels {
-  width: 150px;
+  padding-right: 15px;
   font-size: 14px;
   font-weight: bold;
 }
