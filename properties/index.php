@@ -75,6 +75,7 @@
               }
             ?>
           </div>
+          <img src="../images/Properties_byState_divider.gif" style="padding-left:-52px;" width="608" height="57" />
       <?php
           $i++;
         }
@@ -89,7 +90,7 @@
         
 
         
-      <img src="../images/Properties_byState_divider.gif" style="padding-left:-52px;" width="608" height="57" />
+      
       </div>
     <div class="rightStates">
 	<div class="choose">Choose<br/>another<br/>state below:</div><br/>

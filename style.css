@@ -285,14 +285,16 @@ body {
 }
 #center .Prtext .states{
 	float:left;
-	width:145px;
+	width:580px;
 	padding:15px 0px 25px; 
 }
 #center .Prtext .states a{
+        width: 145px;
 	line-height:25px;
 	font-size:13px;
 	color:#57585a;
 	text-decoration:none; 
+        float: left;
 }
 #center .Prtext .states a:hover{
 	color:#208ccb;

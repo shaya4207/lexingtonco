@@ -42,7 +42,7 @@
 
             }
 
-            $q = mysql_query("INSERT INTO `tenants`(`tenants_property_id`,`tenants_number`,`tenants_name`,`tenants_sq_feet`,`tenants_vacant`,`tenants_anchor`) VALUES $values;");
+            $q = mysql_query("INSERT INTO `tenants`(`tenants_property_id`,`tenants_name`,`tenants_sq_feet`,`tenants_number`,`tenants_vacant`,`tenants_anchor`) VALUES $values;");
             if(!$q) {
               die("INSERT: " . mysql_error());
             } else {

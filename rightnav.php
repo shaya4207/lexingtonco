@@ -13,7 +13,7 @@
 <div id="Rnav">
 <ul>
   <?php
-    $q1 = mysql_query("SELECT s.states_id,s.states_name FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state ORDER BY s.states_name ASC");
+    $q1 = mysql_query("SELECT DISTINCT(s.states_id),s.states_name FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state ORDER BY s.states_name ASC");
     while($r1 = mysql_fetch_assoc($q1)) {
   ?>
       <li <?php if($r1['states_id'] == $s) { echo "class='lion'";} ?>><a href=""><?php echo ucfirst($r1['states_name']);?></a></li>
