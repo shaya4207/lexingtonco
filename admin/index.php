@@ -24,6 +24,7 @@
         </span>
         <a class="adminLinks" href="./add_property.php">Add a Property</a>
         <a class="adminLinks" href="./add_tenants.php">Add a Tenant</a>
+        <a class="adminLinks" href="./siteplanupload.php">Upload a Site Plan</a>
       </div>
     </div>
   </div>

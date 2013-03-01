@@ -565,3 +565,7 @@ a.adminLinks:hover,.adminSubmit:hover {
   background: #084f9e;
   color: #efefef;
 }
+
+#siteplan_create{
+  cursor: crosshair;
+}
