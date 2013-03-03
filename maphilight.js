@@ -339,7 +339,7 @@
 	$.fn.maphilight.defaults = {
 		fill: true,
 		fillColor: '000000',
-		fillOpacity: 1,
+		fillOpacity: 0.1,
 		stroke: false,
 		strokeColor: 'ff0000',
 		strokeOpacity: 1,

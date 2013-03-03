@@ -21,8 +21,24 @@
         <?php
           require('../inc/db.inc');
           
-          if(!isset($_GET) || !isset($_GET['property_id']) && !isset($_POST['property_id'])) {
-            echo "please choose property";
+          if(!isset($_GET) || !isset($_GET['property_id']) && !isset($_POST['property_id']) && !isset($_POST['siteplan'])) {
+        ?>
+          Choose a property to add a Site Plan to:<br/>
+          <form action="./siteplanupload.php" method="get">
+            <select name="property_id">
+              <option selected="selected" disabled="disabled"></option>
+              <?php
+                $q = mysql_query("SELECT `property_id`,`property_name` FROM properties ORDER BY `property_name`");
+                while($r = mysql_fetch_assoc($q)) {
+                  $id = $r["property_id"];
+                  $name = $r["property_name"];
+                  echo "<option value='$id'>$name</option>";
+                }
+              ?>
+            </select>
+            <input type="submit" class="adminSubmit" value="Choose Property" style="float:none;"/>
+          </form>
+        <?php
           } else if(isset($_GET) && isset($_GET['property_id']) && !isset($_POST['property_id'])) {
             $property_id = $_GET['property_id'];
             $q = mysql_query("SELECT * FROM siteplan WHERE siteplan_property_id = '$property_id'");
@@ -35,15 +51,35 @@
               </form>
         <?php
             } else {
-              $q = mysql_query("SELECT siteplan_image_ext FROM siteplan WHERE siteplan_property_id = $property_id");
+              $q = mysql_query("SELECT siteplan_id,siteplan_image_ext,siteplan_areas FROM siteplan WHERE siteplan_property_id = $property_id");
               while($r = mysql_fetch_assoc($q)) {
-                $image_ext = $r['siteplan_image_ext'];
+                $id = $r['siteplan_id'];
+                $image_ext = $r['siteplan_image_ext'];$id;
+                $areas = $r['siteplan_areas'];
         ?>
-                <input type="text" name="tenant_num" size="3" id="tenant_number" />
-                <input type="text" name="siteplan_areas[]" size="75" id="siteplan_areas" />
+                <input type="text" size="3" id="tenant_number" />
+                <input type="text" size="75" id="siteplan_areas" />
                 <input type="submit" value="Add Tenant" id="add_map_area" />
+                <button id="undo">Undo</button>
+                <button id="clear">Clear</button>
                 <img src="../images/siteplan/<?php echo $property_id . '.' . $image_ext;?>" width="940" id="siteplan_create" usemap="#map" />
                 <map name="map" id="map"></map>
+                <form action="./siteplanupload.php" method="post" id="siteplan_form">
+                  <input type="hidden" name="siteplan_id" value="<?php echo $id;?>" />
+         <?php
+                  if(!empty($areas) && !is_null($areas)) {
+                    $areas = unserialize($areas);
+                    foreach($areas as $v) {
+         ?>
+                      <input type="text" class="tenants_row_<?php echo $v['tenant_number'];?>" size="3" name="siteplan[<?php echo $v['tenant_number'];?>][tenant_number]" value="<?php echo $v['tenant_number'];?>" />
+                      <input type="text" class="tenants_row_<?php echo $v['tenant_number'];?>" name="siteplan[<?php echo $v['tenant_number'];?>][tenant_areas]" value="<?php echo $v['tenant_areas'];?>" />
+                      <button class="remove_area tenants_row_<?php echo $v['tenant_number'];?>">Remove this tenant area</button><br/>
+         <?php
+                    }
+                  }
+         ?>
+                  <input type="submit" value="Add areas" id="areas_adder" />
+                </form>
         <?php
               }
             }
@@ -77,6 +113,16 @@
             print_r($_POST);
             print_r($_FILES);
             echo "</pre>";
+          } else if(isset($_POST['siteplan_id'])) {
+            $id = $_POST['siteplan_id'];
+            $areas = serialize($_POST['siteplan']);
+            
+            $update = mysql_query("UPDATE siteplan SET siteplan_areas = '$areas' WHERE siteplan_id = $id");
+            if($update) {
+              header("Location: ./siteplanupload.php");
+            } else {
+              echo "Couldn't update " . mysql_error();
+            }
           }
         ?>
         <br/>
@@ -97,7 +143,7 @@
 
         $('#siteplan_create').click(function(e) {
           var offset = $(this).offset();
-      $("#siteplan_create").maphilight();
+//      $("#siteplan_create").maphilight();
           var xArea = Math.floor(e.pageX - offset.left);
           var yArea = Math.floor(e.pageY - offset.top);
           
@@ -113,15 +159,62 @@
       $("#add_map_area").on('click',function() {
         var tenant_number = $("#tenant_number").val();
         var areas = $("#siteplan_areas").val();
-        
-        var newArea = '<area href="#" shape="poly" coords="' + areas + '" alt="' + tenant_number + '" title="' + tenant_number + '">';
-        $("#map").append(newArea);
-        
-        $("#tenant_number,#siteplan_areas").val('');
-//        alert(areas);
+        if(tenant_number.length >= 1) {
+          var newArea = '<area href="#" shape="poly" coords="' + areas + '" alt="' + tenant_number + '" title="' + tenant_number + '">';
+          $("#map").append(newArea);
+          $("#tenant_number,#siteplan_areas").val('');
+          
+          var addArea = '<input type="text" class="tenants_row_'+tenant_number+'" size="2" name="siteplan['+tenant_number+'][tenant_number]" value="'+tenant_number+'" />';
+          addArea += '<input type="text" class="tenants_row_'+tenant_number+'" name="siteplan['+tenant_number+'][tenant_areas]" value="'+areas+'" />';
+          addArea += '<button class="remove_area tenants_row_'+tenant_number+'">Remove this tenant area</button><br/>';
+          $("#areas_adder").before(addArea);
+          
+          remove_areas();
+        } else {
+          alert("Tenant number can't be empty!");
+        }
       })
-      $("#siteplan_create").maphilight();
+      
+      $("#undo").on('click',function() {
+        if($("#siteplan_areas").val().length >= 1) {
+          var areas = $("#siteplan_areas").val();
+          var newAreas = areas.split(',');
+          newAreas.pop();
+          newAreas.pop();
+          $("#siteplan_areas").val(newAreas);
+        } else {
+          alert("There's nothing to undo!");
+        }
+      });
+      
+      $("#clear").on('click',function() {
+        if($("#siteplan_areas").val().length >= 1) {
+          $("#siteplan_areas").val('');
+        } else {
+          alert("Area field is already empty!");
+        }
+      })
+      
+      remove_areas();
     })
+    
+    function remove_areas() {
+      $(".remove_area").each(function() {
+        $(this).on('click',function() {
+          $(this).removeClass("remove_area");
+          var area_row = $(this).attr("class");
+          var ans = confirm("Are you sure that you want to remove this area?");
+          if(ans) {
+            $("." + area_row).each(function() {
+              $(this).remove();
+            });
+          } else {
+            $(this).addClass("remove_area");
+          }
+          return false;
+        })
+      })
+    }
   </script>
 </body>
 </html>

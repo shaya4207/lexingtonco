@@ -27,7 +27,7 @@
   <div id="center">
     <div class="text" style="font-size:11px; padding-bottom:45px;">
       <?php
-        $q = mysql_query("SELECT p.*,s.* FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state WHERE p.property_id = $prop");
+        $q = mysql_query("SELECT p.*,s.*,sp.siteplan_id FROM properties p LEFT JOIN us_states s ON s.states_id = p.property_state LEFT JOIN siteplan sp ON sp.siteplan_property_id = p.property_id WHERE p.property_id = $prop");
         while($r = mysql_fetch_assoc($q)) {
       ?>
           <div class="title">
@@ -105,16 +105,34 @@
         <div class="textright"> <span class="smallblue" style="color:#cd2129">DOWNLOADS</span><br/>
           <br/>
           <br/>
-          <img src="../../images/Properties_Detail_pdf.gif" width="18" height="17" /><a href="CCmap.pdf"> Area Map</a><br/>
-          <br/>
-          <img src="../../images/Properties_Detail_pdf.gif" width="18" height="17" /><a href="CCDemo.pdf"> Demographics</a><br/>
-          <br/>
-          <br/>
+          <?php
+            if(!empty($r['property_area_map']) && !is_null($r['property_area_map'])) {
+          ?>
+            <img src="../../images/Properties_Detail_pdf.gif" width="18" height="17" /><a href="../../prop_downloads/<?php echo $prop . "_" . $r['property_area_map'];?>"> Area Map</a><br/>
+            <br/>
+          <?php
+            }
+          ?>
+          <?php
+            if(!empty($r['property_demog']) && !is_null($r['property_demog'])) {
+          ?>
+            <img src="../../images/Properties_Detail_pdf.gif" width="18" height="17" /><a href="../../prop_downloads/<?php echo $prop . "_" . $r['property_demog'];?>"> Demographics</a><br/>
+            <br/>
+            <br/>
+          <?php
+            }
+          ?>
           <img src="../../images/bullet_red.gif" width="4" height="5" /><a href="CCdownloads.php"><span style="line-height:15px;"> Click here<br/>
           &nbsp; for additional<br/>
           &nbsp; downloads</span></a><br/>
           <br/>
-          <img src="../../images/bullet_red.gif" width="4" height="5" /><a href="./siteplan/?prop=<?php echo $prop;?>" > View Site Plan</a><br/>
+          <?php
+            if(!empty($r['siteplan_id']) && !is_null($r['siteplan_id'])) {
+          ?>
+              <img src="../../images/bullet_red.gif" width="4" height="5" /><a href="./siteplan/?prop=<?php echo $prop;?>" > View Site Plan</a><br/><br/>
+          <?php
+            }
+          ?>
           <?php
             if(!empty($r["property_website"])) {
               if(substr(strtolower($r["property_website"]),0,4) != "http") {

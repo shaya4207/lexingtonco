@@ -171,6 +171,22 @@
               </td>
             </tr>
             <tr>
+              <td align="right">
+                <label for="property_area_map" class="adminLabels">Area Map</label>
+              </td>
+              <td align="left">
+                <input type="file" id="property_area_map" name="property_area_map" />
+              </td>
+            </tr>
+            <tr>
+              <td align="right">
+                <label for="property_demog" class="adminLabels">Demographics</label>
+              </td>
+              <td align="left">
+                <input type="file" id="property_demog" name="property_demog" />
+              </td>
+            </tr>
+            <tr>
               <td align="right" colspan="2"><input type="submit" class="adminSubmit" style="float:none;" /></td>
             </tr>
           </table>

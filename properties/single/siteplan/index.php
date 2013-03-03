@@ -33,7 +33,34 @@
       <?php
         }
       ?>
-      <img src="../../../images/Properties/countryclub/CC_SitePlan.jpg" width="940" height="574" alt="CC Site Plan" />
+      
+        <?php
+          $q4 = mysql_query("SELECT siteplan_image_ext,siteplan_areas FROM siteplan WHERE siteplan_property_id = $prop");
+          while($r4 = mysql_fetch_assoc($q4)) {
+            $image_ext = $r4['siteplan_image_ext'];
+            $areas = unserialize($r4['siteplan_areas']);
+        ?>
+              <img src="../../../images/siteplan/<?php echo $prop . "." . $image_ext;?>" width="940" height="574" alt="Site Plan" usemap="#map" id="siteplan" />
+              <map id="map" name="map">
+        <?php
+                foreach($areas as $v) {
+                  $tenant_number = $v['tenant_number'];
+                  $q5 = mysql_query("SELECT tenants_vacant FROM tenants WHERE tenants_number = '$tenant_number' AND tenants_property_id = $prop");
+                  while($r5 = mysql_fetch_assoc($q5)) {
+                    $tenants_vacant = $r5['tenants_vacant'];
+                    if(!empty($tenants_vacant) && !is_null($tenants_vacant)) {
+                      $vacant = "data-maphilight='{\"fillColor\":\"2a7ad3\",\"fillOpacity\":\"0.7\"}'";
+                    } else {
+                      $vacant = "";
+                    }
+                    echo '<area href="#" shape="poly" coords="' . $v['tenant_areas'] . '" ' . $vacant . 'alt="' . $tenant_number .'" title="' . $tenant_number .'">';
+                  }
+                }
+        ?>
+              </map>
+        <?php
+          }
+        ?>
       <div class="Tchart">
       	<div class="topbar">
           <div class="row1">NO</div>
@@ -41,28 +68,20 @@
           <div class="row3">SQUARE FT</div>
         </div>
         <div class="whitebar"></div>
+        <div class="tenants_cont">
         <?php
           $q = mysql_query("SELECT tenants_number,tenants_name,tenants_sq_feet FROM tenants WHERE tenants_property_id = $prop");
-          $i=1;
           while($r = mysql_fetch_assoc($q)) {
-            if($i%2) {
-          ?>
-              <div class="whitebar">
-          <?php
-            } else {
-          ?>
-              <div class="bluebar">
-          <?php
-            }
         ?>
-            <div class="row1"><?php echo $r["tenants_number"];?></div>
-            <div class="row2"><?php echo $r["tenants_name"];?></div>
-            <div class="row3"><?php echo $r["tenants_sq_feet"];?></div>
+          <div id="tenant_<?php echo $r['tenants_number'];?>">
+            <span class="row1"><?php echo $r["tenants_number"];?></span>
+            <span class="row2"><?php echo $r["tenants_name"];?></span>
+            <span class="row3"><?php echo $r["tenants_sq_feet"];?></span>
           </div>
         <?php
-          $i++;
           }
-        ?>        
+        ?>
+        </div>
         <br/><br/>
       <a href="../?prop=<?php echo $prop;?>"><img src="../../../images/goback.gif" width="23" height="23" /></a> go back to this property's detail page</div>
       <div class="legend">
@@ -79,5 +98,29 @@
 <div id="footer"><div class="wrapper"><img src="../../../images/Properties_footer.gif" style="background-repeat:no-repeat;" />
     <?php include("footer.php"); ?></div>
 </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script type="text/javascript" src="../../../maphilight.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#siteplan").maphilight();
+      areas_click();
+      $(".tenants_cont div:nth-child(2n+1)").addClass("bluebar");
+      $(".tenants_cont div:nth-child(2n+0)").addClass("whitebar");
+    });
+    
+    function areas_click() {
+      $("area").on('click',function() {
+        $(".tenants_cont").children("div").removeClass("bluebar");
+        $(".tenants_cont").children("div").removeClass("whitebar");
+//        $(".tenants_cont div:nth-child(2n+0)").removeClass("whitebar");
+        var id = $(this).attr("title");
+        var tenant = $("#tenant_" + id);
+        $(".tenants_cont").prepend(tenant);
+        $(".tenants_cont div:nth-child(2n+1)").addClass("bluebar");
+        $(".tenants_cont div:nth-child(2n+0)").addClass("whitebar");
+        return false;
+      })
+    }
+  </script>
 </body>
 </html>

@@ -62,16 +62,60 @@
                 $upload = move_uploaded_file($_FILES['property_image']['tmp_name'],$dir.'/'.$id.'.'.$comb[$filetype]);
                 if($upload){
                   $sql = mysql_query("UPDATE properties SET property_image = 1, property_image_ext = '.$comb[$filetype]' WHERE property_id = $id");
+                  if(!$sql) {
+                    echo "<span class='blue'>Update Error: " . mysql_error() . "(Property Image)</span>";
+                  }
+                }else{
+                  echo "<span class='blue'>Upload Error: " . mysql_error() . "(Property Image)</span>";
+                  exit;
+                }
+              } else {
         ?>
-                  <span class="blue">Property for <?php echo $property_name;?> successfully added!</span><br/>
-                  What would you like to do now?
+                  <span class="blue">Property for <?php echo $property_name;?> was successfully added!</span><br/>
+                  <span style="display:block;width:100%;text-align:center;float:none;">What would you like to do now?</span>
                   <a class="adminLinks" href="./add_property.php">Add Another Property</a>
                   <a class="adminLinks" href="./add_tenants.php?prop=<?php echo $id;?>">Add Tenants For This Property</a>
-
-
-        <?php          
+          <?php
+              }
+            }
+            if(isset($_FILES['property_area_map']) && !empty($_FILES['property_area_map'])) {
+              if($_FILES['property_area_map']['error'] == "0") {
+                
+                $dir = "../prop_downloads/";
+                $name = $_FILES['property_area_map']['name'];
+                $upload = move_uploaded_file($_FILES['property_area_map']['tmp_name'],$dir.'/'.$id . "_" . $name);
+                if($upload){
+                  $sql = mysql_query("UPDATE properties SET property_area_map = '$name' WHERE property_id = $id");
+                  if(!$sql) {
+                    echo "<span class='blue'>Update Error: " . mysql_error() . "(Property Area Map)</span>";
+                  }
                 }else{
-                  echo "<span class='blue'>Upload Error: " . mysql_error() . "</span>";
+                  echo "<span class='blue'>Upload Error: " . mysql_error() . "(Property Area Map)</span>";
+                  exit;
+                }
+              } else {
+        ?>
+                  <span class="blue">Property for <?php echo $property_name;?> was successfully added!</span><br/>
+                  <span style="display:block;width:100%;text-align:center;float:none;">What would you like to do now?</span>
+                  <a class="adminLinks" href="./add_property.php">Add Another Property</a>
+                  <a class="adminLinks" href="./add_tenants.php?prop=<?php echo $id;?>">Add Tenants For This Property</a>
+          <?php
+              }
+            }
+            if(isset($_FILES['property_demog']) && !empty($_FILES['property_demog'])) {
+              if($_FILES['property_demog']['error'] == "0") {
+
+                $dir = "../prop_downloads/";
+                $name2 = $_FILES['property_demog']['name'];
+                $upload = move_uploaded_file($_FILES['property_demog']['tmp_name'],$dir.'/'.$id . "_" . $name2);
+                if($upload){
+                  $sql = mysql_query("UPDATE properties SET property_demog = '$name2' WHERE property_id = $id");
+                  if(!$sql) {
+                    echo "<span class='blue'>Update Error: " . mysql_error() . "(Property Demographics)</span>";
+                  }
+                }else{
+                  echo "<span class='blue'>Upload Error: " . mysql_error() . "(Property Demographics)</span>";
+                  exit;
                 }
               } else {
         ?>
@@ -83,10 +127,14 @@
               }
             }
           } else {
-            echo "<span class='blue'>Insert Error: " . mysql_error() . "</span>";
+            echo "<span class='blue'>Insert Error: " . mysql_error() . "</span><br/>";
           }
         ?>
-
+        <span class="blue">Property for <?php echo $property_name;?> successfully added!</span><br/>
+        <span style="display:block;font-size:1.8em;font-weight:bold;text-align:center;margin-bottom:8px">What would you like to do now?</span><br/>
+        <a class="adminLinks" href="./add_property.php">Add Another Property</a>
+        <a class="adminLinks" href="./add_tenants.php?prop=<?php echo $id;?>">Add Tenants For This Property</a>
+        <a class="adminLinks" href="./siteplanupload.php?property_id=<?php echo $id;?>">Create a Site Map for This Property?</a>
       </div>
     </div>
   </div>
