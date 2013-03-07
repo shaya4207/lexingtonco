@@ -45,37 +45,64 @@
             <br/>
             <span class="13" style="font-size:13px;"><?php echo $r['property_address'];?>,<br/><?php echo $r['property_city'];?>, <?php echo $r['property_s_abbr'] . " " . $r['property_zip'];?></span><br/>
             <br/>
-            <span class="tinyblue">Anchor Stores</span><br/>
+            
             <?php
               $q3 = mysql_query("SELECT tenants_name FROM tenants WHERE tenants_property_id = $prop AND tenants_anchor = 1 ORDER BY tenants_name ASC");
+              if(mysql_num_rows($q3) > 0) {
+                echo '<span class="tinyblue">Anchor Stores</span><br/>';
+              }
               while ($r3 = mysql_fetch_assoc($q3)) {
                 echo $r3["tenants_name"] . "<br />";
               }
             ?>
             <br/>
-            <span class="tinyblue">Property Type</span><br/>
-            <?php echo $r['property_prop_type'];?><br/>
-            <br/>
-            <span class="tinyblue">Built</span><br/>
-            <?php echo $r['property_built'];?><br/>
-            <br/>
-            <span class="tinyblue">Renovated</span><br/>
-            <?php echo $r['property_renovated'];?><br/>
-            <br/>
-            <span class="tinyblue">Total Square Feet</span><br/>
-            <?php echo $r['property_total_sq_ft'];?><br/>
-            <br/>
+            <?php
+              if(!empty($r['property_prop_type'])) {
+            ?>
+                <span class="tinyblue">Property Type</span><br/>
+                <?php echo $r['property_prop_type'];?><br/>
+                <br/>
+            <?php
+              }
+              if(!empty($r['property_built']) && $r['property_built'] != "0") {
+            ?>
+                <span class="tinyblue">Built</span><br/>
+                <?php echo $r['property_built'];?><br/>
+                <br/>
+            <?php
+              }
+              if(!empty($r['property_renovated']) && $r['property_renovated'] != "0") {
+            ?>
+              <span class="tinyblue">Renovated</span><br/>
+              <?php echo $r['property_renovated'];?><br/>
+              <br/>
+            <?php
+              }
+              if(!empty($r['property_total_sq_ft']) && $r['property_total_sq_ft'] != "0") {
+            ?>
+              <span class="tinyblue">Total Square Feet</span><br/>
+              <?php echo $r['property_total_sq_ft'];?><br/>
+              <br/>
+            <?php
+              }
+            ?>
             <span class="tinyblue">Tenants</span><br/>
             <?php
-              $q2 = mysql_query("SELECT tenants_name FROM tenants WHERE tenants_property_id = $prop");
+              $q2 = mysql_query("SELECT tenants_name FROM tenants WHERE tenants_property_id = $prop AND tenants_name <> ''");
               while($r2 = mysql_fetch_assoc($q2)) {
                 echo $r2["tenants_name"] . "<br/>";
               }
             ?>
             <br/>
-            <span class="tinyblue">Space Available</span><br/>
-            <?php echo $r["property_avail_space"];?><br/>
-            <br/>
+            <?php
+              if(!empty($r['property_avail_space']) && $r['property_avail_space'] != "0") {
+            ?>
+              <span class="tinyblue">Space Available</span><br/>
+              <?php echo $r["property_avail_space"];?><br/>
+              <br/>
+            <?php
+              }
+            ?>
           </div>
           <div class="textmid">
             <?php

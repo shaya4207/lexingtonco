@@ -29,7 +29,7 @@
         $q1 = mysql_query("SELECT property_name FROM properties WHERE property_id = $prop");
         while($r1 = mysql_fetch_assoc($q1)) {
       ?>
-      <div class="title"><?php echo strtoupper($r1["property_name"]);?> SITE PLAN</div>
+      <div class="title" style="float:none;"><?php echo strtoupper($r1["property_name"]);?> SITE PLAN</div>
       <?php
         }
       ?>
@@ -40,7 +40,7 @@
             $image_ext = $r4['siteplan_image_ext'];
             $areas = unserialize($r4['siteplan_areas']);
         ?>
-              <img src="../../../images/siteplan/<?php echo $prop . "." . $image_ext;?>" width="940" height="574" alt="Site Plan" usemap="#map" id="siteplan" />
+              <img src="../../../images/siteplan/<?php echo $prop . "." . $image_ext;?>" alt="Site Plan" usemap="#map" id="siteplan" />
               <map id="map" name="map">
         <?php
                 foreach($areas as $v) {
@@ -75,7 +75,7 @@
         ?>
           <div id="tenant_<?php echo $r['tenants_number'];?>">
             <span class="row1"><?php echo $r["tenants_number"];?></span>
-            <span class="row2"><?php echo $r["tenants_name"];?></span>
+            <span class="row2"><?php if(!empty($r['tenants_name'])){echo $r["tenants_name"];} else { echo "&nbsp;";}?></span>
             <span class="row3"><?php echo $r["tenants_sq_feet"];?></span>
           </div>
         <?php

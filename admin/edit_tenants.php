@@ -1,3 +1,6 @@
+<?php
+  require('../inc/db.inc');
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -17,16 +20,30 @@
     <div id="center2">
       <div class="Prtext">
         <div class="title">
-          LEXINGTON REALTY ADMIN BACKEND
+          EDIT A PROPERTY
         </div>
-        <span class="blue">
-          What would you like to do?
-        </span>
-        <a class="adminLinks" href="./add_property.php">Add a Property</a>
-        <a class="adminLinks" href="./add_tenants.php">Add Tenants</a>
-        <a class="adminLinks" href="./siteplanupload.php">Upload a Site Plan</a>
-        <a class="adminLinks" href="./edit_property.php">Edit a Property</a>
-        <a class="adminLinks" href="./edit_tenants.php">Edit Tenants</a>
+        <?php
+          if(!isset($_GET['property_id'])) {
+        ?>
+            <form action="edit_tenants.php" method="get">
+              <select name="property_id">
+                <option selected="selected" disabled="disabled"></option>
+                <?php
+                  $q = mysql_query("SELECT `property_id`,`property_name` FROM properties ORDER BY `property_name`");
+                  while($r = mysql_fetch_assoc($q)) {
+                    $id = $r["property_id"];
+                    $name = $r["property_name"];
+                    echo "<option value='$id'>$name</option>";
+                  }
+                ?>
+              </select>
+              <input type="submit" class="adminSubmit" value="Choose Property" style="float:none;"/>
+            </form>
+        <?php
+          } else {
+            echo "hid";
+          }
+        ?>
       </div>
     </div>
   </div>

@@ -62,7 +62,7 @@
                 <input type="submit" value="Add Tenant" id="add_map_area" />
                 <button id="undo">Undo</button>
                 <button id="clear">Clear</button>
-                <img src="../images/siteplan/<?php echo $property_id . '.' . $image_ext;?>" width="940" id="siteplan_create" usemap="#map" />
+                <img src="../images/siteplan/<?php echo $property_id . '.' . $image_ext;?>" id="siteplan_create" usemap="#map" />
                 <map name="map" id="map"></map>
                 <form action="./siteplanupload.php" method="post" id="siteplan_form">
                   <input type="hidden" name="siteplan_id" value="<?php echo $id;?>" />

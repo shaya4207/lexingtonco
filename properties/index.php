@@ -38,7 +38,7 @@
       <?php
           }
       ?>
-          <div class="Prlist" style="margin-top:140px;">
+          <div class="Prlist">
             <?php
               if($r['property_image'] == 1) {
             ?>

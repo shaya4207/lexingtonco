@@ -22,7 +22,8 @@
         
         <?php
           require('../inc/db.inc');
-
+          
+          $id = $_POST['property_id'];
           $property_name = $_POST['property_name'];
           $property_address = $_POST['property_address'];
           $property_city = $_POST['property_city'];
@@ -37,10 +38,9 @@
           $property_description = $_POST['property_description'];
           $property_website = $_POST['property_website'];
 
-          $q = mysql_query("INSERT INTO properties(property_name,property_address,property_city,property_state,property_zip,property_lease_contact,property_prop_type,property_built,property_renovated,property_total_sq_ft,property_avail_space,property_description,property_website)VALUES('$property_name','$property_address','$property_city','$property_state','$property_zip','$property_lease_contact','$property_prop_type','$property_built','$property_renovated','$property_total_sq_ft','$property_avail_space','$property_description','$property_website')");
+          $q = mysql_query("UPDATE properties SET property_name = '$property_name', property_address = '$property_address', property_city = '$property_city', property_state = '$property_state', property_zip = '$property_zip', property_lease_contact = '$property_lease_contact', property_prop_type = '$property_prop_type', property_built = '$property_built', property_renovated = '$property_renovated', property_total_sq_ft = '$property_total_sq_ft', property_avail_space = '$property_avail_space', property_description = '$property_description', property_website = '$property_website' WHERE property_id = '$id';");
 
           if($q) {
-            $id = mysql_insert_id();
             if(isset($_FILES['property_image']) && !empty($_FILES['property_image'])) {
               if($_FILES['property_image']['error'] == "0") {
                 $filetype = $_FILES['property_image']['type'];
@@ -55,8 +55,6 @@
                   'aiff', 'wbmp', 'xbm');
 
                 $comb = array_combine($type, $ext);
-
-
 
                 $dir = "../prop_images/";
                 $upload = move_uploaded_file($_FILES['property_image']['tmp_name'],$dir.'/'.$id.'.'.$comb[$filetype]);
@@ -78,7 +76,7 @@
                 $name = $_FILES['property_area_map']['name'];
                 $upload = move_uploaded_file($_FILES['property_area_map']['tmp_name'],$dir.'/' . $id . "_area_" . $name);
                 if($upload){
-                  $sql = mysql_query("UPDATE properties SET property_area_map = '$name' WHERE property_id = $id");
+                  $sql = mysql_query("UPDATE properties SET property_area_map = 'area_$name' WHERE property_id = $id");
                   if(!$sql) {
                     echo "<span class='blue'>Update Error: " . mysql_error() . "(Property Area Map)</span>";
                   }
@@ -95,7 +93,7 @@
                 $name2 = $_FILES['property_demog']['name'];
                 $upload = move_uploaded_file($_FILES['property_demog']['tmp_name'],$dir.'/' . $id . "_demog_" . $name2);
                 if($upload){
-                  $sql = mysql_query("UPDATE properties SET property_demog = '$name2' WHERE property_id = $id");
+                  $sql = mysql_query("UPDATE properties SET property_demog = 'demog_$name2' WHERE property_id = $id");
                   if(!$sql) {
                     echo "<span class='blue'>Update Error: " . mysql_error() . "(Property Demographics)</span>";
                   }
@@ -105,15 +103,17 @@
                 }
               }
           }
+        ?>
+          <span class="blue">Property for <?php echo $property_name;?> successfully updated!</span><br/>
+          <span style="display:block;font-size:1.8em;font-weight:bold;text-align:center;margin-bottom:8px">What would you like to do now?</span><br/>
+          <a class="adminLinks" href="./add_property.php">Add Another Property</a>
+          <a class="adminLinks" href="./add_tenants.php?prop=<?php echo $id;?>">Add Tenants For This Property</a>
+          <a class="adminLinks" href="./siteplanupload.php?property_id=<?php echo $id;?>">Create a Site Map for This Property?</a>
+        <?php
         } else {
           echo "<span class='blue'>Insert Error: " . mysql_error() . "</span><br/>";
         }
         ?>
-        <span class="blue">Property for <?php echo $property_name;?> successfully added!</span><br/>
-        <span style="display:block;font-size:1.8em;font-weight:bold;text-align:center;margin-bottom:8px">What would you like to do now?</span><br/>
-        <a class="adminLinks" href="./add_property.php">Add Another Property</a>
-        <a class="adminLinks" href="./add_tenants.php?prop=<?php echo $id;?>">Add Tenants For This Property</a>
-        <a class="adminLinks" href="./siteplanupload.php?property_id=<?php echo $id;?>">Create a Site Map for This Property?</a>
       </div>
     </div>
   </div>
