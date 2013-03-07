@@ -79,7 +79,7 @@
             } else if(!isset($_GET["prop"]) && !isset($_POST["prop"])) {
           ?>
           Choose a property to add tenants to:<br/>
-          <form action="add_tenants.php" method="post">
+          <form action="add_tenants.php" method="get">
             <select name="prop">
               <option selected="selected" disabled="disabled"></option>
               <?php
